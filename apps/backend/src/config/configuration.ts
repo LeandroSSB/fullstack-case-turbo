@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 export default () => ({
   jwtSecret: process.env.JWT_SECRET,
   dbUrl: process.env.DATABASE_URL,

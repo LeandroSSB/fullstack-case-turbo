@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-ioredis-yet';
+import { WinstonLogger } from './logger/logger.service';
 import configuration from './config/configuration';
 
 @Module({
@@ -27,5 +28,12 @@ import configuration from './config/configuration';
     UserModule,
     AuthModule,
   ],
+  providers: [
+    {
+      provide: 'LoggerService',
+      useClass: WinstonLogger,
+    },
+  ],
+  exports: ['LoggerService'],
 })
 export class AppModule {}
