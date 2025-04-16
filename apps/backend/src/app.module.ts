@@ -5,10 +5,14 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-ioredis-yet';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+       isGlobal: true,
+       load: [configuration],
+      }),
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => ({
