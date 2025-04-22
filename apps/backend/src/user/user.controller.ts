@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
-import { CacheTTL } from 'src/common/decorators/cache-ttl.decorator';
+import { CacheTTL } from 'src/common';
 import { WinstonLogger } from 'src/logger/logger.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
