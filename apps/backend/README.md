@@ -29,8 +29,9 @@ Este projeto é a entrega do case técnico para desenvolvimento fullstack, com f
 #### 1. Clonar o repositório
 
 ```bash
-  git clone https://github.com/seu-usuario/nome-do-repo.git
-  cd nome-do-repo
+  git clone git@github.com:LeandroSSB/fullstack-case-turbo.git
+  cd apps
+  cd backend
 ```
 
 #### 2. Instalar dependências

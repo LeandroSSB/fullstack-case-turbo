@@ -32,7 +32,8 @@ Este é o frontend do case técnico Fullstack, desenvolvido com **Next.js** e **
 ### 1. Clonar o repositório
 
 ```bash
-  git clone https://github.com/seu-user/seu-repo.git
+  git clone git@github.com:LeandroSSB/fullstack-case-turbo.git
+  cd apps
   cd frontend
 ```
 
