@@ -44,7 +44,11 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a user successfully', async () => {
-      const dto: CreateUserDto = { email: 'test@email.com', name: 'Test', password: '123456' };
+      const dto: CreateUserDto = {
+        email: 'test@email.com',
+        name: 'Test',
+        password: '123456',
+      };
       mockUserService.findByEmail.mockResolvedValue(null);
       mockUserService.create.mockResolvedValue({ id: 1, ...dto });
 
@@ -53,15 +57,25 @@ describe('UserController', () => {
       expect(mockUserService.findByEmail).toHaveBeenCalledWith(dto.email);
       expect(mockUserService.create).toHaveBeenCalledWith(dto);
       expect(logger.log).toHaveBeenCalledWith(`Usuário criado: ${dto.email}`);
-      expect(result).toEqual({ message: 'Usuário criado com sucesso', data: { id: 1, ...dto } });
+      expect(result).toEqual({
+        message: 'Usuário criado com sucesso',
+        data: { id: 1, ...dto },
+      });
     });
 
     it('should throw conflict exception if email already exists', async () => {
-      const dto: CreateUserDto = { email: 'test@email.com', name: 'Test', password: '123456' };
+      const dto: CreateUserDto = {
+        email: 'test@email.com',
+        name: 'Test',
+        password: '123456',
+      };
       mockUserService.findByEmail.mockResolvedValue({ id: 1, ...dto });
 
       await expect(controller.create(dto)).rejects.toThrow(
-        new HttpException('A user with this email already exists', HttpStatus.CONFLICT),
+        new HttpException(
+          'A user with this email already exists',
+          HttpStatus.CONFLICT,
+        ),
       );
       expect(mockUserService.findByEmail).toHaveBeenCalledWith(dto.email);
     });
@@ -110,14 +124,19 @@ describe('UserController', () => {
       expect(mockUserService.findOne).toHaveBeenCalledWith(1);
       expect(mockUserService.update).toHaveBeenCalledWith(1, dto);
       expect(logger.log).toHaveBeenCalledWith(`Usuário atualizado: ID 1`);
-      expect(result).toEqual({ message: 'Usuário atualizado com sucesso', data: user });
+      expect(result).toEqual({
+        message: 'Usuário atualizado com sucesso',
+        data: user,
+      });
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
       const dto: UpdateUserDto = { name: 'Updated Name' };
       mockUserService.findOne.mockResolvedValue(null);
 
-      await expect(controller.update(1, dto)).rejects.toThrow(NotFoundException);
+      await expect(controller.update(1, dto)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(mockUserService.findOne).toHaveBeenCalledWith(1);
     });
   });
@@ -133,7 +152,10 @@ describe('UserController', () => {
       expect(mockUserService.findOne).toHaveBeenCalledWith(1);
       expect(mockUserService.delete).toHaveBeenCalledWith(1);
       expect(logger.warn).toHaveBeenCalledWith(`Usuário removido: ID 1`);
-      expect(result).toEqual({ message: 'Usuário removido com sucesso', data: user });
+      expect(result).toEqual({
+        message: 'Usuário removido com sucesso',
+        data: user,
+      });
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
@@ -143,5 +165,4 @@ describe('UserController', () => {
       expect(mockUserService.findOne).toHaveBeenCalledWith(1);
     });
   });
-
 });

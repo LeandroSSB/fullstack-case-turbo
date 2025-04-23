@@ -7,7 +7,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import {} from "class-validator";
+import {} from 'class-validator';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -19,18 +19,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'Erro interno do servidor';
 
-    
-   
     if (exception instanceof HttpException) {
       const ExceptionResponse: any = exception.getResponse();
       status = exception.getStatus();
       message = exception.message;
 
-      if (typeof ExceptionResponse == 'object' ) {
-        message = ExceptionResponse?.message
+      if (typeof ExceptionResponse == 'object') {
+        message = ExceptionResponse?.message;
       }
     }
-
 
     response.status(status).json({
       success: false,

@@ -1,7 +1,4 @@
-import {
-  ExecutionContext,
-  Injectable,
-} from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -25,8 +22,12 @@ export class CustomCacheInterceptor extends CacheInterceptor {
     return key;
   }
 
-  async intercept(context: ExecutionContext, next: import('@nestjs/common').CallHandler): Promise<Observable<any>> {
-    const ttl = this.reflector.get<number>('cache-ttl', context.getHandler()) ?? 60;
+  async intercept(
+    context: ExecutionContext,
+    next: import('@nestjs/common').CallHandler,
+  ): Promise<Observable<any>> {
+    const ttl =
+      this.reflector.get<number>('cache-ttl', context.getHandler()) ?? 60;
 
     return (await super.intercept(context, next)).pipe(
       tap(async (response) => {

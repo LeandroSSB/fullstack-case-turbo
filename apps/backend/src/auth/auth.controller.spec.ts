@@ -38,18 +38,31 @@ describe('AuthController', () => {
 
       const result = await controller.login(dto);
 
-      expect(mockAuthService.validateUser).toHaveBeenCalledWith(dto.email, dto.password);
+      expect(mockAuthService.validateUser).toHaveBeenCalledWith(
+        dto.email,
+        dto.password,
+      );
       expect(mockAuthService.login).toHaveBeenCalledWith(user.email, user.id);
       expect(result).toEqual({ data: token });
     });
 
     it('should throw UnauthorizedException if credentials are invalid', async () => {
-      const dto: LoginDto = { email: 'test@email.com', password: 'wrong_password' };
+      const dto: LoginDto = {
+        email: 'test@email.com',
+        password: 'wrong_password',
+      };
 
-      mockAuthService.validateUser.mockRejectedValue(new UnauthorizedException());
+      mockAuthService.validateUser.mockRejectedValue(
+        new UnauthorizedException(),
+      );
 
-      await expect(controller.login(dto)).rejects.toThrow(UnauthorizedException);
-      expect(mockAuthService.validateUser).toHaveBeenCalledWith(dto.email, dto.password);
+      await expect(controller.login(dto)).rejects.toThrow(
+        UnauthorizedException,
+      );
+      expect(mockAuthService.validateUser).toHaveBeenCalledWith(
+        dto.email,
+        dto.password,
+      );
     });
   });
 });

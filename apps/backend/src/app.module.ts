@@ -11,9 +11,9 @@ import configuration from './config/configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
-       isGlobal: true,
-       load: [configuration],
-      }),
+      isGlobal: true,
+      load: [configuration],
+    }),
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => ({

@@ -1,1 +1,1 @@
-export * from './cache-ttl.decorator'
+export * from './cache-ttl.decorator';

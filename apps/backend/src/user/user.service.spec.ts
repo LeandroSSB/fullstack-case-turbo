@@ -6,7 +6,6 @@ import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 
 jest.mock('bcrypt');
 
-
 describe('UserService', () => {
   let service: UserService;
   let prisma: DeepMockProxy<PrismaService>;
@@ -33,8 +32,9 @@ describe('UserService', () => {
       updatedAt: new Date(),
     });
 
-    const spy = jest.spyOn(bcrypt, 'hash').mockImplementation(async () => 'mocked_hash');
-
+    const spy = jest
+      .spyOn(bcrypt, 'hash')
+      .mockImplementation(async () => 'mocked_hash');
 
     await service.create(dto);
 
@@ -52,7 +52,7 @@ describe('UserService', () => {
   });
 
   it('should find user by id', async () => {
-    const user = { id: 1, email: 'test@email.com' }
+    const user = { id: 1, email: 'test@email.com' };
 
     prisma.user.findUnique.mockResolvedValue(user as any);
 
@@ -61,26 +61,52 @@ describe('UserService', () => {
     expect(result).toBeDefined();
     expect(result).toEqual(user);
 
-    expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { id: 1 }, select: { id: true, name: true, email: true } });
+    expect(prisma.user.findUnique).toHaveBeenCalledWith({
+      where: { id: 1 },
+      select: { id: true, name: true, email: true },
+    });
   });
 
   it('should find all users', async () => {
     const users = [
-      { id: 1, name: 'User1', email: 'user1@email.com', password: 'hashed', createdAt: new Date(), updatedAt: new Date() },
-      { id: 2, name: 'User2', email: 'user2@email.com', password: 'hashed', createdAt: new Date(), updatedAt: new Date() },
+      {
+        id: 1,
+        name: 'User1',
+        email: 'user1@email.com',
+        password: 'hashed',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        name: 'User2',
+        email: 'user2@email.com',
+        password: 'hashed',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ];
-    
+
     prisma.user.findMany.mockResolvedValue(users);
 
     const result = await service.findAll();
 
     expect(result).toEqual(users);
-    expect(prisma.user.findMany).toHaveBeenCalledWith({ select: { id: true, name: true, email: true } });
+    expect(prisma.user.findMany).toHaveBeenCalledWith({
+      select: { id: true, name: true, email: true },
+    });
   });
 
   it('should update a user', async () => {
     const updateDto: UpdateUserDto = { name: 'Updated Name' };
-    const updatedUser = { id: 1, name: 'Updated Name', email: 'test@email.com', password: 'hashed', createdAt: new Date(), updatedAt: new Date() };
+    const updatedUser = {
+      id: 1,
+      name: 'Updated Name',
+      email: 'test@email.com',
+      password: 'hashed',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     prisma.user.update.mockResolvedValue(updatedUser);
 
@@ -96,13 +122,13 @@ describe('UserService', () => {
   });
 
   it('should delete a user', async () => {
-    const deletedUser = { 
-      id: 1, 
-      name: 'User1', 
-      email: 'user1@email.com', 
-      password: 'hashed', 
-      createdAt: new Date(), 
-      updatedAt: new Date() 
+    const deletedUser = {
+      id: 1,
+      name: 'User1',
+      email: 'user1@email.com',
+      password: 'hashed',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     prisma.user.delete.mockResolvedValue(deletedUser);
@@ -119,7 +145,14 @@ describe('UserService', () => {
 
   it('should find a user by email', async () => {
     const email = 'test@email.com';
-    const user = { id: 1, name: 'Test', email, password: 'hashed', createdAt: new Date(), updatedAt: new Date() };
+    const user = {
+      id: 1,
+      name: 'Test',
+      email,
+      password: 'hashed',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     prisma.user.findUnique.mockResolvedValue(user);
 

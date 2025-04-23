@@ -54,7 +54,9 @@ describe('AuthService', () => {
 
       mockUserService.findByEmail.mockResolvedValue(user);
 
-      const spy = jest.spyOn(bcrypt, 'compare').mockImplementation(async () => true);
+      const spy = jest
+        .spyOn(bcrypt, 'compare')
+        .mockImplementation(async () => true);
 
       const result = await service.validateUser(email, password);
 
@@ -69,9 +71,13 @@ describe('AuthService', () => {
 
       mockUserService.findByEmail.mockResolvedValue(null);
 
-      await expect(service.validateUser(email, password)).rejects.toThrow(UnauthorizedException);
+      await expect(service.validateUser(email, password)).rejects.toThrow(
+        UnauthorizedException,
+      );
       expect(mockUserService.findByEmail).toHaveBeenCalledWith(email);
-      expect(logger.warn).toHaveBeenCalledWith(`Usuario não encontrado para o email: ${email}`);
+      expect(logger.warn).toHaveBeenCalledWith(
+        `Usuario não encontrado para o email: ${email}`,
+      );
     });
 
     it('should throw UnauthorizedException if password is invalid', async () => {
@@ -80,12 +86,18 @@ describe('AuthService', () => {
       const user = { id: 1, email, password: 'hashed_password' };
 
       mockUserService.findByEmail.mockResolvedValue(user);
-      const spy = jest.spyOn(bcrypt, 'compare').mockImplementation(async () => false);
+      const spy = jest
+        .spyOn(bcrypt, 'compare')
+        .mockImplementation(async () => false);
 
-      await expect(service.validateUser(email, password)).rejects.toThrow(UnauthorizedException);
+      await expect(service.validateUser(email, password)).rejects.toThrow(
+        UnauthorizedException,
+      );
       expect(mockUserService.findByEmail).toHaveBeenCalledWith(email);
       expect(spy).toHaveBeenCalledWith(password, user.password);
-      expect(logger.warn).toHaveBeenCalledWith(`Senha incorreta para o email: ${email}`);
+      expect(logger.warn).toHaveBeenCalledWith(
+        `Senha incorreta para o email: ${email}`,
+      );
     });
   });
 

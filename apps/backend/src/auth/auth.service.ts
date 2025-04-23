@@ -13,17 +13,17 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string) {
-    // Lógica que permite caso necessário, o usuário saber se o usuário existe ou não 
+    // Lógica que permite caso necessário, o usuário saber se o usuário existe ou não
     const user = await this.userService.findByEmail(email);
     if (!user) {
       this.logger.warn(`Usuario não encontrado para o email: ${email}`);
       throw new UnauthorizedException('Email ou senha inválida');
-    };
+    }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       this.logger.warn(`Senha incorreta para o email: ${email}`);
       throw new UnauthorizedException('Email ou senha inválida');
-    };
+    }
 
     return user;
   }

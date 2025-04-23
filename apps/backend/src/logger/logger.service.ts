@@ -6,25 +6,30 @@ import * as winston from 'winston';
 export class WinstonLogger implements LoggerService {
   private logger: winston.Logger;
 
-  constructor( private configService: ConfigService ) {
+  constructor(private configService: ConfigService) {
     this.logger = winston.createLogger({
       level: 'info',
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.printf(({ timestamp, level, message }) => {
           return `[${timestamp}] ${level.toUpperCase()}: ${message}`;
-        })
+        }),
       ),
       transports: [
         new winston.transports.Console({
           format: winston.format.combine(
             winston.format.colorize(),
-            winston.format.simple()
+            winston.format.simple(),
           ),
         }),
-        ...(Boolean(configService.get<string>('persistLog'))
-          ? [new winston.transports.File({ filename: 'logs/error.log', level: 'error' })]
-          : [])
+        ...(configService.get<string>('persistLog')
+          ? [
+              new winston.transports.File({
+                filename: 'logs/error.log',
+                level: 'error',
+              }),
+            ]
+          : []),
       ],
     });
   }
