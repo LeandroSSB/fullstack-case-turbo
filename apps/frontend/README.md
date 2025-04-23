@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Frontend - Case Técnico Fullstack (Next.js + React Query)
 
-## Getting Started
+Este é o frontend do case técnico Fullstack, desenvolvido com **Next.js** e **React Query**. A aplicação consome uma API REST criada com NestJS, oferecendo telas para **login, listagem, criação e edição de usuários**, com integração de autenticação via **JWT**.
 
-First, run the development server:
+---
+
+## 📚 Tecnologias utilizadas
+
+- ⚡ [Next.js](https://nextjs.org/) com TypeScript
+- 🔄 [React Query (Tanstack)](https://tanstack.com/query/v4) para cache de requisições
+- 🔐 Armazenamento de token JWT no `localStorage`
+- 🎨 Estilização com Tailwind CSS (ou classes utilitárias simples)
+- 🔗 Integração com backend NestJS
+
+---
+
+## 🧱 Funcionalidades
+
+- Tela de **login** (com autenticação JWT)
+- Tela de **listagem de usuários**
+- Tela de **cadastro de novo usuário**
+- Tela de **edição de usuário existente**
+- Listagem disponível mesmo sem login (somente leitura)
+- Botões de editar/excluir disponíveis **apenas logado**
+- Layout global com cabeçalho e botão de logout
+- Integração completa com backend via `axios`
+
+---
+
+## ⚙️ Como rodar o projeto
+
+### 1. Clonar o repositório
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/seu-user/seu-repo.git
+  cd frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar dependências
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+ yarn
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Configurar variáveis de ambiente
+Crie um arquivo .env.local com a URL da API:
 
-## Learn More
+```env
+  NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+ - ⚠️ A API NestJS precisa estar rodando localmente na porta 5000.
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Rodar o servidor de desenvolvimento
+```bash
+  yarn dev
+```
+- A aplicação estará disponível em: http://localhost:3001 (ou porta padrão do Next.js)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗂️ Estrutura do projeto
+```bash
+  frontend/
+  ├── components/          # Layout, UserForm
+  ├── pages/               # Rotas: login, users, create, edit
+  ├── services/            # Configuração do axios
+  ├── hooks/               # (opcional) React Query hooks
+  └── interfaces/          # Tipagem da entidade User
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔐 Autenticação
+ - O login (/login) retorna um access_token que é salvo no localStorage
+ - O token é enviado automaticamente via header Authorization: Bearer ...
+ - Rotas como criar/editar são protegidas pelo Layout
+ - Logout limpa o token e redireciona para login
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ✅ Fluxo de uso
+  1. Acesse /login com um usuário existente da API
+  2. Após login, será redirecionado para /users
+  3. A partir daí, pode:
+    - Criar novos usuários
+    - Editar os existentes
+    - Excluir usuários
+  4. Se acessar sem login, pode apenas visualizar a lista
