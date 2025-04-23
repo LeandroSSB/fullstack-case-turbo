@@ -68,15 +68,17 @@ Este projeto é a entrega do case técnico para desenvolvimento fullstack, com f
 ```
 
 ## 🧪 Testes
+
 ```bash
   yarn test
   yarn test:cov
 ```
 
 ## 🔐 Autenticação
-  - Rota de login: POST /auth/login
-  - Proteção com @UseGuards(JwtAuthGuard)
-  - Swagger com suporte a Bearer Token
+
+- Rota de login: POST /auth/login
+- Proteção com @UseGuards(JwtAuthGuard)
+- Swagger com suporte a Bearer Token
 
 ## 🗂️ Estrutura de pastas (resumo)
 
@@ -90,11 +92,12 @@ Este projeto é a entrega do case técnico para desenvolvimento fullstack, com f
 ```
 
 ## 🏆 Bônus implementados
-| Requisito Extra                   | Implementado |
-|-----------------------------------|--------------|
-| ✅ JWT com proteção de rotas	     | ✅ Sim      |
-| ✅ Swagger com @nestjs/swagger	   | ✅ Sim      |
-| ✅ Cache com Redis	               | ✅ Sim      |
-| ✅ Logs estruturados com Winston	 | ✅ Sim      |
-| ✅ .env + @nestjs/config	         | ✅ Sim      |
-| ✅ Cobertura com Jest	           | ✅ Sim      |
+
+| Requisito Extra                  | Implementado |
+| -------------------------------- | ------------ |
+| ✅ JWT com proteção de rotas     | ✅ Sim       |
+| ✅ Swagger com @nestjs/swagger   | ✅ Sim       |
+| ✅ Cache com Redis               | ✅ Sim       |
+| ✅ Logs estruturados com Winston | ✅ Sim       |
+| ✅ .env + @nestjs/config         | ✅ Sim       |
+| ✅ Cobertura com Jest            | ✅ Sim       |
